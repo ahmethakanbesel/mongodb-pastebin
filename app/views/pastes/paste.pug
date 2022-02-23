@@ -1,0 +1,23 @@
+paste.paste
+  h3
+    a(href='/pastes/'+paste._id, title=paste.title) #{paste.title.slice(0, 140)}
+  p= paste.body.slice(0, 400)
+
+  .meta
+    span.text-muted= formatDate(paste.createdAt)
+
+    - if (paste.user)
+      | &nbsp; - &nbsp;
+      span Author &nbsp;
+
+      - var name = paste.user.name ? paste.user.name : paste.user.username
+
+      a(href="/users/"+paste.user._id)= name
+
+    - if (paste.tags)
+      | &nbsp; - &nbsp;
+      span Tags &nbsp;
+      each tag in paste.tags.split(',').slice(0, 10)
+        i.text-muted.fa.fa-tag &nbsp;
+        a.tag(href="/tags/"+tag)= tag
+        | &nbsp;&nbsp;
